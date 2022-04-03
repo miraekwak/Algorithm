@@ -1,3 +1,8 @@
+N = int(input())
+queen = [0]*N
+result = 0
+
+
 def is_exist(q):
     for i in range(q):
         if queen[q] == queen[i] or abs(queen[q]-queen[i]) == q - i:
@@ -6,8 +11,8 @@ def is_exist(q):
 
 
 def dfs(q):
-    global result
     if q == N:
+        global result
         result += 1
     else:
         for i in range(N):
@@ -16,9 +21,5 @@ def dfs(q):
                 dfs(q+1)
 
 
-if __name__ == '__main__':
-    N = int(input())
-    queen = [0]*N
-    result = 0
-    dfs(0)
-    print(result)
+dfs(0)
+print(result)
