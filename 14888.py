@@ -2,41 +2,30 @@ import sys
 N = int(sys.stdin.readline())
 numbers = list(map(int, sys.stdin.readline().split()))
 # 0:+, 1:-, 2:*, 3://
-cal = list(map(int, sys.stdin.readline().split()))
-result = []
+a, b, c, d = map(int, sys.stdin.readline().split())
+max_num = -sys.maxsize-1
+min_num = sys.maxsize
 
 
-def dfs(num, idx):
-    global cal
+def dfs(num, idx, add, sub, mul, div):
+    global max_num, min_num
     if idx == N:
-        global result
-        result.append(num)
+        max_num = max(max_num, num)
+        min_num = min(min_num, num)
         return
-    if cal[0] != 0:
-        new_num = num + numbers[idx]
-        cal[0] -= 1
-        dfs(new_num, idx+1)
-        cal[0] += 1
-    if cal[1] != 0:
-        new_num = num - numbers[idx]
-        cal[1] -= 1
-        dfs(new_num, idx+1)
-        cal[1] += 1
-    if cal[2] != 0:
-        new_num = num * numbers[idx]
-        cal[2] -= 1
-        dfs(new_num, idx+1)
-        cal[2] += 1
-    if cal[3] != 0:
+    if add > 0:
+        dfs(num+numbers[idx], idx+1, add-1, sub, mul, div)
+    if sub > 0:
+        dfs(num-numbers[idx], idx+1, add, sub-1, mul, div)
+    if mul > 0:
+        dfs(num*numbers[idx], idx+1, add, sub, mul-1, div)
+    if div > 0:
         if num < 0 < numbers[idx]:
-            new_num = -(abs(num) // numbers[idx])
+            dfs(-(abs(num)//numbers[idx]), idx + 1, add, sub, mul, div - 1)
         else:
-            new_num = num // numbers[idx]
-        cal[3] -= 1
-        dfs(new_num, idx+1)
-        cal[3] += 1
+            dfs(num//numbers[idx], idx+1, add, sub, mul, div-1)
 
 
-dfs(numbers[0], 1)
-print(max(result))
-print(min(result))
+dfs(numbers[0], 1, a, b, c, d)
+print(max_num)
+print(min_num)
