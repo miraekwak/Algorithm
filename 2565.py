@@ -11,5 +11,4 @@ for i in range(n):
         if a1 > a2 and b1 > b2 and dp[i] < dp[j]:
             dp[i] = dp[j]
     dp[i] += 1
-print(dp)
 print(n - max(dp))
