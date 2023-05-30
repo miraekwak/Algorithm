@@ -11,7 +11,11 @@
 # additional
 /out
 /.idea
+
+# Java
 /Java/.idea
+/Java/Algorithm.iml
+/Java/out
 /Java/HackerRank
 /Java/kakao
 /Java/hundai
