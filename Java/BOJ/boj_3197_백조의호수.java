@@ -106,7 +106,8 @@ public class boj_3197_백조의호수 {
 					}
 					visited[nr][nc] = curr.num;
 					swans.add(new Swan(nr, nc, curr.num));
-					isTouch = isExistNear(new Swan(nr, nc, curr.num));
+					// 두 백조 사이 빙판이 짝수 개인 경우 홀수일이 되어야 만나기 때문에 이를 개선하기 위해 한단계 더 나아가서 확인
+					isTouch = isExistNear(new Swan(nr, nc, curr.num)); 
 				}
 				if(isTouch) break;
 			}
@@ -115,6 +116,11 @@ public class boj_3197_백조의호수 {
 		return day;
 	}
 
+	/**
+	 * 한단계 더 나아가서 백조가 서로 닿았는지 확인
+	 * @param swan
+	 * @return
+	 */
 	private static boolean isExistNear(Swan swan) {
 		for(int d=0; d<4; d++) {
 			int nr = swan.r+dr[d];
@@ -125,6 +131,10 @@ public class boj_3197_백조의호수 {
 		return false;
 	}
 	
+	/**
+	 * 빙판과 닿아있는 물 가장자리 구하기
+	 * @return
+	 */
 	private static Queue<int[]> getEdges() {
 		Queue<int[]> queue = new ArrayDeque<int[]>();
 		for(int i=0; i<R; i++) {
@@ -145,6 +155,10 @@ public class boj_3197_백조의호수 {
 		return queue;
 	}
 	
+	/**
+	 * 백조를 이동시켜 빙판에 막힌 가장자리 구하기
+	 * @return
+	 */
 	private static Queue<Swan> getSwans() {
 		Queue<Swan> swans = new ArrayDeque<>();
 		Queue<Swan> queue = new ArrayDeque<Swan>();
