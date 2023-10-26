@@ -113,7 +113,6 @@ public class CT_방화벽설치하기 {
 		for (int i = 0; i < N; i++) {
 			Arrays.fill(visited[i], false);
 		}
-		
 	}
 
 	private static boolean isOutOfRange(int r, int c) {
